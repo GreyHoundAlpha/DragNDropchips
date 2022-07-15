@@ -12,10 +12,30 @@ export default function Dnd() {
     { id: 4, group: "group3", value: "drag 4", selected: false },
     { id: 5, group: "group3", value: "drag 5", selected: false },
   ];
+
+  const initialItems2 = [
+    { id: 1, value: "drag 1", selected: false },
+    { id: 2, value: "drag 2", selected: false },
+    { id: 3, value: "drag 3", selected: false },
+    { id: 4, value: "drag 4", selected: false },
+    { id: 5, value: "drag 5", selected: false },
+    {
+      id: 5,
+      group: "001",
+      isSelected: true,
+      groupExpression: [
+        { id: 6, value: "drag 2", selected: false },
+        { id: 7, value: "drag 3", selected: false },
+        { id: 8, value: "drag 4", selected: false },
+        { id: 9, value: "drag 5", selected: false },
+      ],
+    },
+  ];
+
   const [items, setItems] = useState(initialItems);
 
   const [dragData, setDragData] = useState({});
-  const [groupDragData, setGroupDragData] = useState();
+  const [modalDragData, setModalDragData] = useState([]);
 
   const [noDrop, setNoDrop] = useState("");
   //Adding counter for lists
@@ -30,10 +50,12 @@ export default function Dnd() {
     const dummyWithoutSelected = dummyItems.filter(
       (item) => item.id !== selectItem.id
     );
-    console.log(dummyWithoutSelected);
+    // console.log(dummyWithoutSelected);
     if (e.target.checked === true) {
       selectItem.selected = true;
       // setItems([...dummyWithoutSelected, selectItem]);
+    } else {
+      selectItem.selected = false;
     }
   };
   const selectedArray = items.filter((item) => item.selected === true);
@@ -41,6 +63,12 @@ export default function Dnd() {
   const handleDragStart = (e, id, group) => {
     setDragData({ id: id, initialGroup: group });
   };
+  console.log(dragData);
+  // const handleModalDragStart = (e) => {
+  //   console.log(selectedArray);
+  //   setModalDragData([...selectedArray]);
+  // };
+  // console.log(modalDragData);
   const addItems = (e) => {
     e.preventDefault();
     setListCounter((prevState) => prevState + 1);
@@ -61,9 +89,9 @@ export default function Dnd() {
         item.group === deleteSelected.group &&
         item.value === deleteSelected.value
     );
-    console.log(deleteIndex);
+    // console.log(deleteIndex);
     dummyItems.splice(deleteIndex, 1);
-    console.log("dummyItems", dummyItems);
+    // console.log("dummyItems", dummyItems);
     setItems([...dummyItems]);
   };
 
@@ -86,6 +114,10 @@ export default function Dnd() {
     newItems[itemId - 1].group = group;
     setItems([...newItems]);
   };
+  // const changeModalContentCategory = (group) => {
+  //   const dataTransfer = selectedArray.forEach((item) => (item.group = group));
+  //   console.log("dataTransfer", dataTransfer);
+  // };
 
   const handleDrop = (e, group) => {
     setNoDrop("");
@@ -93,21 +125,24 @@ export default function Dnd() {
     if (group === "noDrop") {
       console.log("nuh uh");
     } else {
+      console.log(selected);
       changeCategory(selected, group);
+      // changeModalContentCategory(group);
     }
   };
+
   const selectGroupToAdd = (e, group) => {
-    console.log("groupSelected", group);
+    // console.log("groupSelected", group);
     setGroupSelected(group);
   };
   const selectItemToDelete = (e, item) => {
-    console.log("itemSelected", item);
+    // console.log("itemSelected", item);
     setDeleteSelected({ ...item });
   };
   //drop Group
-  const handleGroupDragStart = (e) => {
-    console.log(e);
-  };
+  // const handleGroupDragStart = (e) => {
+  //   console.log(e);
+  // };
   return (
     <>
       <button onClick={addItems}>Add list Items</button>
@@ -132,12 +167,15 @@ export default function Dnd() {
             onDragLeave={handleDragLeave}
             onDrop={(e) => handleDrop(e, group)}
             key={group}
-            draggable
-            onDragStart={handleGroupDragStart}
+            // onDragStart={handleGroupDragStart}
             onClick={(e) => selectGroupToAdd(e, group)}
           >
             <h1 className="title">{group}</h1>
-
+            {/* {selectedArray.length > 0 && group === selectedArray[0].group && (
+              <div className="selectedItemsModal" draggable="true">
+                {selectedArray.length} selected
+              </div> */}
+            {/* )} */}
             <div>
               {items
                 .filter((item) => item.group === group)
@@ -155,9 +193,6 @@ export default function Dnd() {
                     onDragStart={(e) => handleDragStart(e, item.id, group)}
                     onClick={(e) => selectItemToDelete(e, item)}
                   >
-                    {selectedArray.length > 0 && (
-                      <div>{selectedArray.length} selected</div>
-                    )}
                     <input
                       type="checkbox"
                       value={checkboxValue}
