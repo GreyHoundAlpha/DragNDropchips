@@ -1,0 +1,68 @@
+.groups {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+}
+.groups .group {
+  margin: 2px;
+  padding: 20px;
+  min-height: 6rem;
+  background-color: green;
+  width: 50%;
+}
+.groups .group .title {
+  color: white;
+  padding: 0;
+  margin-top: 0;
+}
+.groups .noDrop {
+  margin: 2px;
+  padding: 20px;
+  min-height: 16rem;
+  background-color: red;
+  cursor: not-allowed !important;
+}
+.groups .noDrop .title {
+  color: white;
+  padding: 0;
+  margin-top: 0;
+}
+
+.item {
+  background-color: yellow;
+  color: blue;
+  margin: 5px;
+  padding: 5px;
+  border: 2px green;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.notAllowed {
+  background-color: yellow;
+  color: blue;
+  margin: 5px;
+  padding: 5px;
+  border: 2px green;
+  cursor: not-allowed;
+}
+
+.dropGroup {
+  margin: 2px;
+  padding: 20px;
+  min-height: 6rem;
+  background-color: yellow;
+  width: 50%;
+}
+
+.dropGroupCont {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+}/*# sourceMappingURL=Dnd.css.map */
