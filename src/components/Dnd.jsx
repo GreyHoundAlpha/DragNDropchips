@@ -64,11 +64,11 @@ export default function Dnd() {
     setDragData({ id: id, initialGroup: group });
   };
   console.log(dragData);
-  // const handleModalDragStart = (e) => {
-  //   console.log(selectedArray);
-  //   setModalDragData([...selectedArray]);
-  // };
-  // console.log(modalDragData);
+  const handleModalDragStart = (e) => {
+    console.log(selectedArray);
+    setModalDragData([...selectedArray]);
+  };
+  console.log(modalDragData);
   const addItems = (e) => {
     e.preventDefault();
     setListCounter((prevState) => prevState + 1);
@@ -114,10 +114,10 @@ export default function Dnd() {
     newItems[itemId - 1].group = group;
     setItems([...newItems]);
   };
-  // const changeModalContentCategory = (group) => {
-  //   const dataTransfer = selectedArray.forEach((item) => (item.group = group));
-  //   console.log("dataTransfer", dataTransfer);
-  // };
+  const changeModalContentCategory = (group) => {
+    const dataTransfer = selectedArray.forEach((item) => (item.group = group));
+    console.log("dataTransfer", dataTransfer);
+  };
 
   const handleDrop = (e, group) => {
     setNoDrop("");
@@ -140,9 +140,9 @@ export default function Dnd() {
     setDeleteSelected({ ...item });
   };
   //drop Group
-  // const handleGroupDragStart = (e) => {
-  //   console.log(e);
-  // };
+  const handleGroupDragStart = (e) => {
+    console.log(e);
+  };
   return (
     <>
       <button onClick={addItems}>Add list Items</button>
@@ -171,11 +171,11 @@ export default function Dnd() {
             onClick={(e) => selectGroupToAdd(e, group)}
           >
             <h1 className="title">{group}</h1>
-            {/* {selectedArray.length > 0 && group === selectedArray[0].group && (
+            {selectedArray.length > 0 && group === selectedArray[0].group && (
               <div className="selectedItemsModal" draggable="true">
                 {selectedArray.length} selected
-              </div> */}
-            {/* )} */}
+              </div>
+            )}
             <div>
               {items
                 .filter((item) => item.group === group)
